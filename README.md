@@ -4,6 +4,8 @@
 
 Implement a multi-step form component that allows users to input and review information across multiple steps.
 
+The solution is expected to be implemented in `src/components/MultiStepForm.tsx` file. Feel free to create new files as needed within the `src` folder. However, the entry component that will be tested is `src/components/MultiStepForm.tsx`
+
 ## Requirements
 1. **Form Steps**:
    - The form should have three steps as listed the below:
