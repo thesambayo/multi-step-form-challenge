@@ -3,5 +3,5 @@
  */
 
 export const MultiStepForm = () => {
-	return <div>{/** Good luck */}</div>;
+  return <div>{/** Good luck */}</div>;
 };
