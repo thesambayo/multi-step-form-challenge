@@ -16,7 +16,7 @@ The solution is expected to be implemented in `src/components/MultiStepForm.tsx`
           - (Must be minimum of 8 characters that includes at least a lowercase and uppercase alphabet, a number and a special character).
      - Step 2: Collect the user's address, city, and zip code using the following keys and `data-test-id` values.
        - address `address-input`
-       - cit `city-input`
+       - city `city-input`
        - zipCode `zipCode-input`
      - Step 3: Collect the user's phone number and emergency contact name using the following keys and `data-test-id` values.
        - phoneNumber`phoneNumber-input`
