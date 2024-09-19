@@ -1,36 +1,55 @@
-import { MultiStepAction, ReducerActionKind, ReducerState } from "./step.model"
+import { MultiStepAction, ReducerActionKind, MultiStepsReducerState, StepFormItem } from "./step.model"
 
 interface StepProps {
-	stepState: ReducerState;
+	stepState: MultiStepsReducerState;
 	updateStepInfo: React.Dispatch<MultiStepAction>
 }
+
+const userStepForm: StepFormItem[] = [
+	{
+		id: "name-input",
+		label: "Name",
+		valueKey: "name",
+		reducerType : ReducerActionKind.SET_NAME,
+	},
+	{
+		id: "email-input",
+		label: "Email",
+		valueKey: "email",
+		reducerType : ReducerActionKind.SET_EMAIL,
+	},
+	{
+		id: "password-input",
+		label: "Password",
+		valueKey: "password",
+		reducerType : ReducerActionKind.SET_PASSWORD,
+	}
+];
+
 export const UserStep  = ({stepState, updateStepInfo}: StepProps) => {
-	return <section>
+	return <section data-test-id="step-1">
 		<h3 className="my-2 text-lg font-semibold">User information</h3>
 
 		<div className="flex flex-col space-y-4">
-			<div className="flex flex-col gap-1">
-				<label htmlFor="name-input">Name</label>
-				<input id="name-input" name="name-input" data-test-id="name-input" type="text"
-					value={stepState.stepFormState.name}
-					onChange={(event) => updateStepInfo({ type: ReducerActionKind.SET_NAME, payload: event.target.value })}
-				/>
-				{/* error */}
-			</div>
-			<div className="flex flex-col gap-1">
-				<label htmlFor="email-input">Email</label>
-				<input id="email-input" name="email-input" data-test-id="email-input" type="text"
-					value={stepState.stepFormState.email}
-					onChange={(event) => updateStepInfo({ type: ReducerActionKind.SET_EMAIL, payload: event.target.value })}
-					/>
-			</div>
-			<div className="flex flex-col gap-1">
-				<label htmlFor="password-input">Password</label>
-				<input id="password-input" name="password-input" data-test-id="password-input" type="text"
-				value={stepState.stepFormState.password}
-				onChange={(event) => updateStepInfo({ type: ReducerActionKind.SET_PASSWORD, payload: event.target.value })}
-				 />
-			</div>
+			{
+				userStepForm.map(({id, label, reducerType, valueKey}) => (
+					<div className="flex flex-col gap-1" key={id}>
+						<label htmlFor={id}>{label}</label>
+						<input id={id} name={id} data-test-id={id} type="text"
+							value={stepState.stepFormState[valueKey]}
+							onChange={(event) => updateStepInfo({ type: reducerType, payload: event.target.value })}
+						/>
+						{
+							stepState.stepFormErrors[valueKey] && 
+							(
+								<small data-test-id={`${valueKey}-error`} className="text-red-500">
+									{stepState.stepFormErrors[valueKey]}
+								</small>
+							)
+						}
+					</div>
+				))
+			}
 		</div>
 	</section>
 }

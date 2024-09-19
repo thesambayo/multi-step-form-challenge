@@ -6,18 +6,6 @@ export enum Step {
 	Success,
 };
 
-
-// const multiStepFormState = {
-// 	name: "",
-// 	email: "",
-// 	password: "",
-// 	address: "",
-// 	city: "",
-// 	zipCode: "",
-// 	phoneNumber: "",
-// 	emergencyContact: "",
-// }
-
 export interface StepFormState {
 	name: string;
 	email: string;
@@ -29,20 +17,21 @@ export interface StepFormState {
 	emergencyContact: string;
 }
 
-export interface ReducerState {
+export interface MultiStepsReducerState {
 	currentStep: Step;
 	stepFormState: StepFormState;
+	stepFormErrors: Record<string, string>
 }
 
 export enum ReducerActionKind {
-  SET_NAME = 'SET_NAME',
-  SET_EMAIL = 'SET_EMAIL',
-  SET_PASSWORD = 'SET_PASSWORD',
-  SET_ADDRESS = 'SET_ADDRESS',
-  SET_CITY = 'SET_CITY',
-  SET_ZIPCODE = 'SET_ZIPCODE',
-  SET_PHONE_NUMBER = 'SET_PHONE_NUMBER',
-  SET_EMERGENCY_CONTACT = 'SET_EMERGENCY_CONTACT',
+  SET_NAME = 'name',
+  SET_EMAIL = 'email',
+  SET_PASSWORD = 'password',
+  SET_ADDRESS = 'address',
+  SET_CITY = 'city',
+  SET_ZIPCODE = 'zipCode',
+  SET_PHONE_NUMBER = 'phoneNumber',
+  SET_EMERGENCY_CONTACT = 'emergencyContact',
   SET_NEXT_STEP = 'SET_NEXT_STEP',
   SET_PREV_STEP = 'SET_PREV_STEP',
 }
@@ -51,4 +40,11 @@ export enum ReducerActionKind {
 export interface MultiStepAction {
   type: ReducerActionKind;
   payload: string;
+}
+
+export interface StepFormItem {
+	id: string;
+	label: string;
+	valueKey: keyof StepFormState;
+	reducerType : ReducerActionKind;
 }
